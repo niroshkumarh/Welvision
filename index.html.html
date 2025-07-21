@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welvision User Manual</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; color: #222; }
+        .container { max-width: 900px; margin: 2rem auto; background: #fff; padding: 2rem 2.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        h1, h2, h3 { color: #1a4a7a; }
+        h1 { font-size: 2.2rem; margin-bottom: 0.5em; }
+        h2 { font-size: 1.5rem; margin-top: 2em; }
+        h3 { font-size: 1.2rem; margin-top: 1.5em; }
+        ul.toc { background: #e9f1fa; padding: 1em 1.5em; border-radius: 8px; margin-bottom: 2em; }
+        ul.toc li { margin: 0.5em 0; }
+        ul.toc a { color: #1a4a7a; text-decoration: none; }
+        ul.toc a:hover { text-decoration: underline; }
+        .search-bar { margin-bottom: 2em; }
+        .search-bar input { width: 100%; padding: 0.7em; font-size: 1rem; border: 1px solid #bbb; border-radius: 5px; }
+        .highlight { background: #ffe066; }
+        section { margin-bottom: 2.5em; }
+        section, section p, section ul, section ol, .caption { text-align: justify; }
+        @media (max-width: 600px) { .container { padding: 1em; } }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+            justify-content: center;
+        }
+        .gallery-item {
+            background: #f4f8fb;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            padding: 1em;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5em;
+        }
+        .gallery-item img {
+            width: 100%;
+            max-width: 270px;
+            border-radius: 6px;
+            margin-bottom: 0.7em;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+        }
+        .caption {
+            font-size: 1em;
+            color: #234;
+            text-align: center;
+        }
+        @media (max-width: 700px) {
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+            }
+            .gallery-item {
+                width: 95vw;
+                max-width: 98vw;
+            }
+            .gallery-item img {
+                max-width: 95vw;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.85);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+            cursor: grab;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1100;
+        }
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: #fff;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            cursor: pointer;
+            z-index: 1100;
+            padding: 0.2em 0.5em;
+            border-radius: 8px;
+            user-select: none;
+        }
+        .modal-nav.left { left: 10px; }
+        .modal-nav.right { right: 10px; }
+        #modal-caption {
+            color: #fff;
+            text-align: center;
+            margin: 1.5em auto 0 auto;
+            max-width: 700px;
+            font-size: 1.1em;
+            background: rgba(0,0,0,0.4);
+            padding: 1em 1.5em;
+            border-radius: 8px;
+        }
+        .area-highlight {
+            color: #1a4a7a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welvision User Manual</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search the manual..." oninput="searchContent()">
+    </div>
+    <nav>
+        <ul class="toc">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#workflow">User Workflow</a></li>
+            <li><a href="#roles">Login Roles & Permissions</a></li>
+            <li><a href="#inference">Inference Modules</a></li>
+            <li><a href="#info">Info Tab</a></li>
+            <li><a href="#data">Data Page</a></li>
+            <li><a href="#diagnosis">Diagnosis</a></li>
+            <li><a href="#model-preview">Model Preview</a></li>
+            <li><a href="#model-management">Model Management</a></li>
+            <li><a href="#user-management">User Management</a></li>
+            <li><a href="#system-check">System Check</a></li>
+            <li><a href="#gui-gallery">GUI Gallery</a></li>
+            <li><a href="#summary">Summary</a></li>
+        </ul>
+    </nav>
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>AI-driven roller inspection system developed to automate quality control processes in industrial environments. It performs real-time visual inspection of rollers by capturing images from two critical perspectives: BigFace (BF) and OD. Leveraging advanced machine learning models, the system accurately detects and classifies surface-level defects such as rust, dents, damages, flat lines, spherical marks, high heads, and down heads. Based on predefined confidence thresholds, and determines the acceptability of each roller, calculates quality percentages, and segregates defective units while storing their corresponding images for review.<br><br>The system is structured around a role-based access model comprising three user levels: User, Admin, and Super Admin. Users are primarily responsible for initiating and monitoring live inspections, with read-only access to results and statistics. Admins are granted additional privileges to configure thresholds, manage roller data, upload models, and oversee limited user account settings. Super Admins retain full control over the system, including access to PLC configuration, global limits, emergency operations, GUI customization, and complete user and model management.<br><br>Key modules of the system include the Inference Panel, which presents live inspection data, feed images, roller details, and statistical summaries; the Model Preview module, which enables offline testing of BF and OD models without affecting the live pipeline; and the Diagnosis Module, which provides date-filtered reporting with graphical summaries and export capabilities. The Info Panel offers a centralized dashboard for GUI customization, device connectivity checks, and system diagnostics. Threshold adjustments and model tuning histories are also logged for traceability.<br><br>Administrators can manage roller specifications and set dimensional boundaries through the Data Module, while Super Admins define global limits that govern what ranges Admins can work within. AI models are handled through the Model Management section, where models can be uploaded, activated, viewed, or deleted. The User Management module enables Admins and Super Admins to manage system users, with delete access restricted to Super Admins. Finally, the System Check interface provides physical control over the inspection process, allowing pattern selection, sensor monitoring, and emergency halts via PLC integration.</p>
+    </section>
+    <section id="workflow">
+        <h2>User Workflow</h2>
+        <ol>
+            <li><b>User Login and Role-Based Access</b><br>The system begins at the Login Page, where the user selects one of three roles: User, Admin, or Super Admin. After entering their Employee ID and Password, the user logs in. Access to system modules is determined by role:<ul><li>User: Limited to live inspection via Inference Panel.</li><li>Admin: Additional access to threshold settings, data, model management, and limited user controls.</li><li>Super Admin: Full access including PLC/system check, GUI customization, global limits, and emergency control.</li></ul></li>
+            <li><b>Navigation to Inference Panel and Starting the System</b><br>Once logged in, the user navigates to the Inference Panel. The user selects: Roller Type, BF and OD Models, Confidence Thresholds. Upon confirmation, the user clicks the Start button (only in Auto mode) to initiate the inspection cycle.</li>
+            <li><b>Selection of Operation Mode</b><br><b>Manual Mode (Physical Control Only):</b> The user physically switches the system mode to Manual using the control panel. If required, the user adjusts speed physically. The index plate is activated manually, and the disk begins to rotate. Rollers are fed manually between the rotating teeth. Start/Stop controls are completely physical in this mode—no UI-based controls are active. The user can press the physical Stop button to halt the inspection process. An Emergency Stop is available on the physical panel for safety override.<br><b>Auto Mode (UI-Controlled):</b> The user clicks the Start button on the UI, followed by pressing the Cycle Start button physically. Speed can be adjusted if needed. The disk rotates, rollers are automatically loaded between the teeth, and the inspection proceeds. In this mode, the user can start and stop the process via the UI. The UI Emergency Stop also remains available at all times.</li>
+            <li><b>Roller Inspection Process – Sensor-Based Workflow</b><br>Once the roller is placed between the teeth and begins its cycle, it passes through six sensor checkpoints:<ul><li>Sensor 1: BF Presence Detection</li><li>Sensor 2: Head Type Detection</li><li>Sensor 3: OD Presence Detection</li><li>Sensor 4: BF Accept/Reject Decision</li><li>Sensor 5: OD Accept/Reject Decision</li><li>Sensor 6: Teeth Sensor – Slot Counter</li></ul></li>
+            <li><b>Real-Time Roller Status via UI</b><br>The UI Interface plays a crucial role in live monitoring and feedback during inspection, showing live feeds, defect counts, roller status, rejected images, confidence thresholds, measurements, status indicators, and control buttons.</li>
+        </ol>
+    </section>
+    <section id="roles">
+        <h2>Login Roles & Permissions</h2>
+        <h3>User (Operator Role)</h3>
+        <ul><li>Access Rights: Can access Inference Tab – View live inspection results, inspection statistics and quality percentages. Limited to view-only functions.</li></ul>
+        <h3>Admin Role</h3>
+        <ul><li>Includes all Operator rights.</li><li>Can additionally access Data Tab, Settings Tab, Model Preview Tab, Model Management Tab, Diagnosis Tab, User Management (limited), Toggle Allow All Images.</li></ul>
+        <h3>Super Admin Role</h3>
+        <ul><li>Includes all Admin rights.</li><li>Exclusive access to System Check Tab, Global Roller Limits, GUI Title Management, Full User Management, Audit Trail Logs, Advanced System Settings.</li></ul>
+        <p><b>Sign-in Steps:</b> Select the role (User/Admin/Super Admin), enter Employee ID and Password, then click Sign In to access the panel.</p>
+    </section>
+    <section id="inference">
+        <h2>Inference Modules</h2>
+        <p><b>Screen Name:</b> Inference Panel</p>
+        <ul>
+            <li>Purpose: To perform live inspection of rollers using real-time camera feeds and AI models that assess both BF (BigFace) and OD (Outer Diameter).</li>
+            <li>Roller Type Dropdown: Select the roller to inspect.</li>
+            <li>Date & Time: Displays current date and time for reference/logging.</li>
+            <li>Confidence Thresholds: Shows model confidence level used to detect defects.</li>
+            <li>AI Models Dropdown: Select OD Model and BigFace Model.</li>
+            <li>BF Feed & OD Feed: Live image stream from camera, highlights visual defects if detected.</li>
+            <li>Results Section: BigFace Result, OD Result.</li>
+            <li>Overall Result: Combines both BF and OD data.</li>
+            <li>Roller Info Panel: Displays roller specifications.</li>
+            <li>Rejected Roller Images: Last rejected BF and OD roller images.</li>
+            <li>Control Buttons, Top-Right Controls, Navigation Buttons.</li>
+        </ul>
+    </section>
+    <section id="info">
+        <h2>Info Tab</h2>
+        <ul>
+            <li>GUI Application Title Management: Customize the Welvision interface branding or identification.</li>
+            <li>Settings History: Track all threshold modifications applied during inspections.</li>
+            <li>System Information: Snapshot of hardware/software and connection statuses.</li>
+            <li>User Manual Access: Directs to the full documentation for Welvision.</li>
+        </ul>
+    </section>
+    <section id="data">
+        <h2>Data Page</h2>
+        <ul>
+            <li>Global Roller Limits (Super Admin Only): Set acceptable minimum and maximum physical dimensions for all roller types.</li>
+            <li>Roller Information: Define specific roller entries.</li>
+            <li>Roller Data Table: Lists all existing roller types with properties.</li>
+        </ul>
+    </section>
+    <section id="diagnosis">
+        <h2>Diagnosis</h2>
+        <ul>
+            <li>Provides automated inspection reports and graphical summaries of roller defects over time.</li>
+            <li>Controls Panel: Filter and generate custom reports based on inspection type, date, and component.</li>
+            <li>Defect wise Chart: Visual breakdown of defect types.</li>
+        </ul>
+    </section>
+    <section id="model-preview">
+        <h2>Model Preview</h2>
+        <ul>
+            <li>Test and validate AI models for both OD and BF in real-time before applying them in live inspections.</li>
+            <li>Preview Controls: Select model files, refresh models.</li>
+            <li>Live Preview Actions and Prediction Feeds.</li>
+            <li>Threshold Settings Section: Fine-tune detection sensitivity of the AI models before deployment.</li>
+        </ul>
+    </section>
+    <section id="model-management">
+        <h2>Model Management</h2>
+        <ul>
+            <li>Manage all AI models used in the inspection system.</li>
+            <li>Upload new models, view/filter installed models, view model details, delete outdated models.</li>
+        </ul>
+    </section>
+    <section id="user-management">
+        <h2>User Management</h2>
+        <ul>
+            <li>Manage all user accounts, including creation, modification, status control, and password changes.</li>
+            <li>Current Users Table: List of all registered users with details.</li>
+            <li>User Details Panel: Add/update users, change password, deactivate/delete users.</li>
+            <li>Installed Models Table, Model Controls.</li>
+        </ul>
+    </section>
+    <section id="system-check">
+        <h2>System Check</h2>
+        <ul>
+            <li>Control and monitor the physical inspection system (PLC-connected).</li>
+            <li>Control Settings: BigFace/OD Control, System Status, Sensor Status, Processing Counters.</li>
+            <li>System Control Buttons, Emergency Handling.</li>
+        </ul>
+    </section>
+    <section id="gui-gallery">
+        <h2>GUI Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Login page.jpg" alt="Login Page" onclick="openModal(this)">
+                <div class="caption"><b>Login Page:</b> The entry point for all users. Select your role (User, Admin, Super Admin), enter your Employee ID and password to access the system. Clean and simple for quick access.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Role Selection</b>: Choose your access level.</li><li><b>Employee ID & Password</b>: Secure login.</li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Inference.jpg" alt="Inference Panel" onclick="openModal(this)">
+                <div class="caption"><b>Inference Panel:</b> Shows live inspection feeds, defect highlights, and real-time roller status. Users can monitor inspection results and see defect overlays as they happen.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Live Feeds</b>: Real-time camera output.</li><li><b>Defect Highlights</b>: Visual overlays for detected issues.</li><li><b>Status Summary</b>: Inspection counts and results.</li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Data Page.jpg" alt="Data Page" onclick="openModal(this)">
+                <div class="caption"><b>Data Page:</b> Manage roller types and set dimensional limits. Admins and Super Admins can add, edit, or delete roller profiles within global boundaries.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Roller Table</b>: List and edit roller types.</li><li><b>Global Limits</b>: Set system-wide boundaries.</li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <div style="position:relative;width:300px;max-width:100%;">
+                    <img src="welvision/Welvision/Diagnosis page for OD.jpg" alt="Diagnosis Page for OD" id="diagnosis-od-img" style="width:100%;display:block;cursor:pointer;" onclick="openInteractiveImage('diagnosis-od')">
+                    <svg id="diagnosis-od-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
+                </div>
+                <div class="caption"><b>Diagnosis Page (OD):</b> Visualizes inspection results over time. Includes a detailed data table, status chart (inspected, accepted, rejected), and defectwise chart (rust, damage, dent, etc.). Filter and export reports easily.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Report Data Table</b>: Inspection history and defect counts.</li><li><b>Status Chart</b>: Visualizes inspection throughput.</li><li><b>Defectwise Chart</b>: Breakdown of defect types.</li><li><b>Controls</b>: Filter and export options.</li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Diagnosis page for BF.jpg" alt="Diagnosis Page for BF" onclick="openModal(this)">
+                <div class="caption"><b>Diagnosis Page (BF):</b> Focused on BigFace inspection results and defect analysis, similar to OD diagnosis.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Report Data Table</b></li><li><b>Status Chart</b></li><li><b>Defectwise Chart</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Diagnosis page for OverAll.jpg" alt="Diagnosis Page for OverAll" onclick="openModal(this)">
+                <div class="caption"><b>Diagnosis Page (OverAll):</b> Aggregates inspection data across all types for a comprehensive quality overview.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Aggregated Charts</b></li><li><b>Comprehensive Data Table</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Model Management.jpg" alt="Model Management" onclick="openModal(this)">
+                <div class="caption"><b>Model Management:</b> Upload, activate, and delete AI models. View model details and manage which models are used for inspection.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Model List</b></li><li><b>Upload/Delete Controls</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/User Management.jpg" alt="User Management" onclick="openModal(this)">
+                <div class="caption"><b>User Management:</b> Add, update, or deactivate users. Assign roles and manage account security for all system users.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>User Table</b></li><li><b>User Details Panel</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/system check.jpg" alt="System Check" onclick="openModal(this)">
+                <div class="caption"><b>System Check:</b> For Super Admins/Admins to control and monitor the physical inspection system. Includes pattern selection, real-time status, and emergency controls.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Pattern Selection</b></li><li><b>Status Indicators</b></li><li><b>Emergency Controls</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Info tab.jpg" alt="Info Tab" onclick="openModal(this)">
+                <div class="caption"><b>Info Tab:</b> Customize the GUI title, view system diagnostics, and access user manuals. Restricted to Super Admins for advanced configuration.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Title Management</b></li><li><b>System Diagnostics</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/setting change history.jpg" alt="Setting Change History" onclick="openModal(this)">
+                <div class="caption"><b>Setting Change History:</b> Track all threshold and configuration changes for audit and traceability. Filter and export logs as needed.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Change Log Table</b></li><li><b>Export/Filter Controls</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Model preview.jpg" alt="Model Preview" onclick="openModal(this)">
+                <div class="caption"><b>Model Preview:</b> Test AI models in real-time before deploying them to live inspections. See prediction results and adjust thresholds.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Live Prediction Feeds</b></li><li><b>Model Selection</b></li></ul></div>
+            </div>
+            <div class="gallery-item">
+                <img src="welvision/Welvision/Moodel Preview Threshold settings page.jpg" alt="Model Preview Threshold Settings" onclick="openModal(this)">
+                <div class="caption"><b>Model Preview Threshold Settings:</b> Fine-tune AI model sensitivity for different defect types before applying them in production.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Threshold Sliders</b></li><li><b>Save/Apply Controls</b></li></ul></div>
+            </div>
+        </div>
+        <div id="modal" class="modal" onclick="closeModal(event)">
+            <span class="modal-close" onclick="closeModal(event)">&times;</span>
+            <button class="modal-nav left" id="modal-prev" onclick="modalPrev(event)">&#8592;</button>
+            <button class="modal-nav right" id="modal-next" onclick="modalNext(event)">&#8594;</button>
+            <img class="modal-content" id="modal-img">
+            <div id="modal-caption"></div>
+        </div>
+        <div id="hotspot-info" style="display:none;position:fixed;top:20%;left:50%;transform:translateX(-50%);background:#fff;padding:1em 2em;border-radius:8px;box-shadow:0 2px 8px #0003;z-index:2000;min-width:250px;max-width:90vw;">
+            <span id="hotspot-close" style="float:right;cursor:pointer;font-size:1.5em;" onclick="hideHotspotInfo()">&times;</span>
+            <div id="hotspot-text"></div>
+        </div>
+    </section>
+    <section id="summary">
+        <h2>Summary</h2>
+        <p>An advanced AI-powered roller inspection system designed to automate quality assurance in industrial manufacturing environments. The system leverages high-resolution imaging and sensor-based validation to perform real-time inspection of rollers, focusing on two key areas: the BigFace (BF) and the OD. It identifies surface-level defects including rust, dents, damage, flat lines, spherical marks, and head-type deviations (high head and down head), and classifies rollers as either OK or Not OK based on preconfigured AI model thresholds.<br><br>The system architecture is designed with three distinct user roles: User, Admin, and Super Admin. Two operational modes are supported: Manual Mode (fully controlled through physical buttons and switches) and Auto Mode (initiated and stopped via the system UI). During operation, the roller progresses through six sensor checkpoints, and the user interface provides a live visual feedback loop throughout the inspection process.<br><br>All inspection data is logged and saved automatically. Additional modules include Model Preview, Diagnosis Module, Data Management, Model Management, User Management, and the System Check module for PLC-level control. In conclusion, the roller inspection system developed by Welvision Pvt. Ltd. offers a comprehensive, intelligent, and highly automated solution for quality assurance in roller-based manufacturing processes.</p>
+    </section>
+</div>
+<script>
+function searchContent() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.style.display = 'block';
+        section.innerHTML = section.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/g, '$1');
+        if (input) {
+            let html = section.innerHTML;
+            const regex = new RegExp(input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            html = html.replace(regex, match => `<span class="highlight">${match}</span>`);
+            section.innerHTML = html;
+            if (!section.textContent.toLowerCase().includes(input)) {
+                section.style.display = 'none';
+            }
+        }
+    });
+}
+// Carousel logic for gallery images
+const galleryImages = Array.from(document.querySelectorAll('.gallery-item img, .gallery-item div > img'));
+let currentImgIdx = 0;
+function openModal(imgElem) {
+    var modal = document.getElementById('modal');
+    var modalImg = document.getElementById('modal-img');
+    var captionText = document.getElementById('modal-caption');
+    modal.style.display = "flex";
+    // Find index
+    currentImgIdx = galleryImages.findIndex(img => img === imgElem);
+    updateModalContent();
+    // Reset zoom
+    modalImg.style.transform = 'scale(1)';
+    modalImg.dataset.zoom = '1';
+}
+function updateModalContent() {
+    var modalImg = document.getElementById('modal-img');
+    var captionText = document.getElementById('modal-caption');
+    var imgElem = galleryImages[currentImgIdx];
+    modalImg.src = imgElem.src;
+    // Find the caption from the gallery-item
+    var caption = imgElem.parentElement.querySelector('.caption');
+    if (!caption && imgElem.parentElement.parentElement.querySelector('.caption')) {
+        caption = imgElem.parentElement.parentElement.querySelector('.caption');
+    }
+    captionText.innerHTML = caption ? caption.innerHTML : '';
+    // Hotspot logic for Diagnosis OD
+    if (imgElem.id === 'diagnosis-od-img') {
+        setTimeout(() => drawHotspots(imgElem, 'diagnosis-od-svg', diagnosisHotspots), 100);
+        document.getElementById('diagnosis-od-svg').style.display = '';
+    } else {
+        if (document.getElementById('diagnosis-od-svg')) document.getElementById('diagnosis-od-svg').style.display = 'none';
+    }
+}
+function modalPrev(e) {
+    e.stopPropagation();
+    currentImgIdx = (currentImgIdx - 1 + galleryImages.length) % galleryImages.length;
+    updateModalContent();
+}
+function modalNext(e) {
+    e.stopPropagation();
+    currentImgIdx = (currentImgIdx + 1) % galleryImages.length;
+    updateModalContent();
+}
+document.addEventListener('keydown', function(e) {
+    var modal = document.getElementById('modal');
+    if (modal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') modalPrev(e);
+        if (e.key === 'ArrowRight') modalNext(e);
+        if (e.key === 'Escape') closeModal(e);
+    }
+});
+function closeModal(event) {
+    if (event.target.classList.contains('modal') || event.target.classList.contains('modal-close')) {
+        document.getElementById('modal').style.display = "none";
+    }
+}
+// Zoom and pan for modal image
+let isDragging = false, startX, startY, scrollLeft, scrollTop;
+const modalImg = document.getElementById('modal-img');
+if (modalImg) {
+    modalImg.onwheel = function(e) {
+        e.preventDefault();
+        let zoom = parseFloat(modalImg.dataset.zoom || '1');
+        zoom += e.deltaY * -0.001;
+        zoom = Math.min(Math.max(zoom, 1), 3);
+        modalImg.style.transform = `scale(${zoom})`;
+        modalImg.dataset.zoom = zoom;
+    };
+    modalImg.onmousedown = function(e) {
+        if ((modalImg.dataset.zoom || '1') > 1) {
+            isDragging = true;
+            startX = e.pageX - modalImg.offsetLeft;
+            startY = e.pageY - modalImg.offsetTop;
+            document.body.style.cursor = 'grabbing';
+        }
+    };
+    window.onmouseup = function() { isDragging = false; document.body.style.cursor = ''; };
+    window.onmousemove = function(e) {
+        if (isDragging) {
+            modalImg.style.left = (e.pageX - startX) + 'px';
+            modalImg.style.top = (e.pageY - startY) + 'px';
+        }
+    };
+}
+// Interactive image map for Diagnosis page for OD.jpg
+const diagnosisHotspots = [
+  // coords: [x, y, width, height] as % of image size
+  {name: 'Log Out', coords: [88, 2, 8, 5], desc: 'Log Out: Click here to securely exit your session.'},
+  {name: 'Generate Report', coords: [82, 22, 13, 6], desc: 'Generate Report: Create a new inspection report based on selected filters.'},
+  {name: 'Export to Excel', coords: [82, 36, 13, 6], desc: 'Export to Excel: Download the current report data as an Excel file.'},
+  {name: 'Status Chart', coords: [2, 60, 47, 30], desc: 'Status Chart: Visualizes the number of rollers inspected, accepted, and rejected.'},
+  {name: 'Defectwise Chart', coords: [51, 60, 47, 30], desc: 'Defectwise Chart: Shows the breakdown of defect types found during inspection.'},
+  {name: 'Report Data Table', coords: [2, 10, 78, 30], desc: 'Report Data Table: Displays detailed inspection records for each roller/component.'}
+];
+function openInteractiveImage(imgId) {
+  if (imgId === 'diagnosis-od') {
+    // Open modal with image
+    var modal = document.getElementById('modal');
+    var modalImg = document.getElementById('modal-img');
+    var captionText = document.getElementById('modal-caption');
+    var img = document.getElementById('diagnosis-od-img');
+    modal.style.display = "flex";
+    modalImg.src = img.src;
+    captionText.innerHTML = img.parentElement.parentElement.querySelector('.caption').innerHTML;
+    // Draw hotspots
+    setTimeout(() => drawHotspots(img, 'diagnosis-od-svg', diagnosisHotspots), 100);
+    // Add click handler
+    modalImg.onclick = function(e) {
+      const rect = modalImg.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      for (const h of diagnosisHotspots) {
+        const [hx, hy, hw, hh] = h.coords;
+        if (x >= hx && x <= hx+hw && y >= hy && y <= hy+hh) {
+          showHotspotInfo(h.desc);
+          highlightHotspot('diagnosis-od-svg', h.coords);
+          return;
+        }
+      }
+      hideHotspotInfo();
+      highlightHotspot('diagnosis-od-svg', null);
+    };
+  }
+}
+function drawHotspots(img, svgId, hotspots) {
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const w = img.width, h = img.height;
+  for (const spot of hotspots) {
+    const [x, y, ww, hh] = spot.coords;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', (x/100)*w);
+    rect.setAttribute('y', (y/100)*h);
+    rect.setAttribute('width', (ww/100)*w);
+    rect.setAttribute('height', (hh/100)*h);
+    rect.setAttribute('fill', 'rgba(26,74,122,0.18)');
+    rect.setAttribute('stroke', '#1a4a7a');
+    rect.setAttribute('stroke-width', '2');
+    rect.setAttribute('pointer-events', 'auto');
+    rect.onmouseover = () => highlightHotspot(svgId, spot.coords);
+    rect.onmouseout = () => highlightHotspot(svgId, null);
+    rect.onclick = (e) => { showHotspotInfo(spot.desc); e.stopPropagation(); };
+    svg.appendChild(rect);
+  }
+}
+function highlightHotspot(svgId, coords) {
+  const svg = document.getElementById(svgId);
+  // Remove previous highlight
+  const prev = svg.querySelector('.hotspot-highlight');
+  if (prev) svg.removeChild(prev);
+  if (!coords) return;
+  const img = document.getElementById('diagnosis-od-img');
+  const w = img.width, h = img.height;
+  const [x, y, ww, hh] = coords;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  rect.setAttribute('x', (x/100)*w);
+  rect.setAttribute('y', (y/100)*h);
+  rect.setAttribute('width', (ww/100)*w);
+  rect.setAttribute('height', (hh/100)*h);
+  rect.setAttribute('fill', 'rgba(255,224,102,0.35)');
+  rect.setAttribute('stroke', '#ffb300');
+  rect.setAttribute('stroke-width', '3');
+  rect.setAttribute('class', 'hotspot-highlight');
+  svg.appendChild(rect);
+}
+function showHotspotInfo(text) {
+  document.getElementById('hotspot-text').innerText = text;
+  document.getElementById('hotspot-info').style.display = 'block';
+}
+function hideHotspotInfo() {
+  document.getElementById('hotspot-info').style.display = 'none';
+  highlightHotspot('diagnosis-od-svg', null);
+}
+</script>
+</body>
+</html> 
