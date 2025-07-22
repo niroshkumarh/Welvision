@@ -125,7 +125,29 @@
             color: #1a4a7a;
             font-weight: bold;
         }
+        .code-block-wrapper {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #eee;
+            border: none;
+            padding: 0.2em 0.6em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            z-index: 10;
+        }
     </style>
+    <!-- Prism.js for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <!-- Tablesort for sortable tables -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+    <!-- Bootstrap CSS for enhanced table styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -148,6 +170,7 @@
             <li><a href="#system-check">System Check</a></li>
             <li><a href="#gui-gallery">GUI Gallery</a></li>
             <li><a href="#summary">Summary</a></li>
+            <li><a href="#comprehensive-manual">Comprehensive User &amp; Developer Manual</a></li>
         </ul>
     </nav>
     <section id="introduction">
@@ -253,58 +276,58 @@
         <h2>GUI Gallery</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="welvision/Welvision/Login-page.jpg" alt="Login Page" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Login-page.jpg" alt="Login Page" onclick="openModal(this)">
                 <div class="caption"><b>Login Page:</b> The entry point for all users. Select your role (User, Admin, Super Admin), enter your Employee ID and password to access the system. Clean and simple for quick access.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Role Selection</b>: Choose your access level.</li><li><b>Employee ID & Password</b>: Secure login.</li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Inference.jpg" alt="Inference Panel" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Inference.jpg" alt="Inference Panel" onclick="openModal(this)">
                 <div class="caption"><b>Inference Panel:</b> Shows live inspection feeds, defect highlights, and real-time roller status. Users can monitor inspection results and see defect overlays as they happen.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Live Feeds</b>: Real-time camera output.</li><li><b>Defect Highlights</b>: Visual overlays for detected issues.</li><li><b>Status Summary</b>: Inspection counts and results.</li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Data-Page.jpg" alt="Data Page" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Data-Page.jpg" alt="Data Page" onclick="openModal(this)">
                 <div class="caption"><b>Data Page:</b> Manage roller types and set dimensional limits. Admins and Super Admins can add, edit, or delete roller profiles within global boundaries.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Roller Table</b>: List and edit roller types.</li><li><b>Global Limits</b>: Set system-wide boundaries.</li></ul></div>
             </div>
             <div class="gallery-item">
                 <div style="position:relative;width:300px;max-width:100%;">
-                    <img src="welvision/Welvision/Diagnosis-page-for-OD.jpg" alt="Diagnosis Page for OD" id="diagnosis-od-img" style="width:100%;display:block;cursor:pointer;" onclick="openInteractiveImage('diagnosis-od')">
+                    <img src="Welvision/Welvision/Diagnosis-page-for-OD.jpg" alt="Diagnosis Page for OD" id="diagnosis-od-img" style="width:100%;display:block;cursor:pointer;" onclick="openInteractiveImage('diagnosis-od')">
                     <svg id="diagnosis-od-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
                 </div>
                 <div class="caption"><b>Diagnosis Page (OD):</b> Visualizes inspection results over time. Includes a detailed data table, status chart (inspected, accepted, rejected), and defectwise chart (rust, damage, dent, etc.). Filter and export reports easily.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Report Data Table</b>: Inspection history and defect counts.</li><li><b>Status Chart</b>: Visualizes inspection throughput.</li><li><b>Defectwise Chart</b>: Breakdown of defect types.</li><li><b>Controls</b>: Filter and export options.</li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Diagnosis-page-for-BF.jpg" alt="Diagnosis Page for BF" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Diagnosis-page-for-BF.jpg" alt="Diagnosis Page for BF" onclick="openModal(this)">
                 <div class="caption"><b>Diagnosis Page (BF):</b> Focused on BigFace inspection results and defect analysis, similar to OD diagnosis.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Report Data Table</b></li><li><b>Status Chart</b></li><li><b>Defectwise Chart</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Diagnosis-page-for-OverAll.jpg" alt="Diagnosis Page for OverAll" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Diagnosis-page-for-OverAll.jpg" alt="Diagnosis Page for OverAll" onclick="openModal(this)">
                 <div class="caption"><b>Diagnosis Page (OverAll):</b> Aggregates inspection data across all types for a comprehensive quality overview.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Aggregated Charts</b></li><li><b>Comprehensive Data Table</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Model-Management.jpg" alt="Model Management" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Model-Management.jpg" alt="Model Management" onclick="openModal(this)">
                 <div class="caption"><b>Model Management:</b> Upload, activate, and delete AI models. View model details and manage which models are used for inspection.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Model List</b></li><li><b>Upload/Delete Controls</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/User-Management.jpg" alt="User Management" onclick="openModal(this)">
+                <img src="Welvision/Welvision/User-Management.jpg" alt="User Management" onclick="openModal(this)">
                 <div class="caption"><b>User Management:</b> Add, update, or deactivate users. Assign roles and manage account security for all system users.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>User Table</b></li><li><b>User Details Panel</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/system-check.jpg" alt="System Check" onclick="openModal(this)">
+                <img src="Welvision/Welvision/system-check.jpg" alt="System Check" onclick="openModal(this)">
                 <div class="caption"><b>System Check:</b> For Super Admins/Admins to control and monitor the physical inspection system. Includes pattern selection, real-time status, and emergency controls.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Pattern Selection</b></li><li><b>Status Indicators</b></li><li><b>Emergency Controls</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Info-tab.jpg" alt="Info Tab" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Info-tab.jpg" alt="Info Tab" onclick="openModal(this)">
                 <div class="caption"><b>Info Tab:</b> Customize the GUI title, view system diagnostics, and access user manuals. Restricted to Super Admins for advanced configuration.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Title Management</b></li><li><b>System Diagnostics</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/setting-change-history.jpg" alt="Setting Change History" onclick="openModal(this)">
+                <img src="Welvision/Welvision/setting-change-history.jpg" alt="Setting Change History" onclick="openModal(this)">
                 <div class="caption"><b>Setting Change History:</b> Track all threshold and configuration changes for audit and traceability. Filter and export logs as needed.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Change Log Table</b></li><li><b>Export/Filter Controls</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Model-preview.jpg" alt="Model Preview" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Model-preview.jpg" alt="Model Preview" onclick="openModal(this)">
                 <div class="caption"><b>Model Preview:</b> Test AI models in real-time before deploying them to live inspections. See prediction results and adjust thresholds.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Live Prediction Feeds</b></li><li><b>Model Selection</b></li></ul></div>
             </div>
             <div class="gallery-item">
-                <img src="welvision/Welvision/Moodel-Preview-Threshold-settings-page.jpg" alt="Model Preview Threshold Settings" onclick="openModal(this)">
+                <img src="Welvision/Welvision/Moodel-Preview-Threshold-settings-page.jpg" alt="Model Preview Threshold Settings" onclick="openModal(this)">
                 <div class="caption"><b>Model Preview Threshold Settings:</b> Fine-tune AI model sensitivity for different defect types before applying them in production.<br><span class='area-highlight'>Key Areas:</span> <ul><li><b>Threshold Sliders</b></li><li><b>Save/Apply Controls</b></li></ul></div>
             </div>
         </div>
@@ -323,6 +346,372 @@
     <section id="summary">
         <h2>Summary</h2>
         <p>An advanced AI-powered roller inspection system designed to automate quality assurance in industrial manufacturing environments. The system leverages high-resolution imaging and sensor-based validation to perform real-time inspection of rollers, focusing on two key areas: the BigFace (BF) and the OD. It identifies surface-level defects including rust, dents, damage, flat lines, spherical marks, and head-type deviations (high head and down head), and classifies rollers as either OK or Not OK based on preconfigured AI model thresholds.<br><br>The system architecture is designed with three distinct user roles: User, Admin, and Super Admin. Two operational modes are supported: Manual Mode (fully controlled through physical buttons and switches) and Auto Mode (initiated and stopped via the system UI). During operation, the roller progresses through six sensor checkpoints, and the user interface provides a live visual feedback loop throughout the inspection process.<br><br>All inspection data is logged and saved automatically. Additional modules include Model Preview, Diagnosis Module, Data Management, Model Management, User Management, and the System Check module for PLC-level control. In conclusion, the roller inspection system developed by Welvision Pvt. Ltd. offers a comprehensive, intelligent, and highly automated solution for quality assurance in roller-based manufacturing processes.</p>
+    </section>
+    <section id="comprehensive-manual">
+        <h2>Comprehensive User &amp; Developer Manual</h2>
+        <h3>1. User Interface (UI) Overview</h3>
+        <h4>1.1. Login Screen</h4>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Role Selection</td><td>RadioButton</td><td>Choose between "User", "Admin", "Super Admin". Determines access level.</td></tr>
+                <tr><td>Employee ID</td><td>Entry</td><td>Enter your unique employee ID.</td></tr>
+                <tr><td>Password</td><td>Entry</td><td>Enter your password (masked).</td></tr>
+                <tr><td>Sign In</td><td>Button</td><td>Authenticates credentials and logs you in.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <p><b>Behavior:</b><br>
+        - Pressing Enter or clicking "Sign In" attempts login.<br>
+        - Error dialogs appear for invalid credentials.</p>
+        <h4>1.2. Main Window Layout</h4>
+        <ul>
+            <li><b>Header:</b>
+                <ul>
+                    <li><b>App Title:</b> Shows "WELVISION" or a custom title from the database.</li>
+                    <li><b>User Info:</b> Shows current role and user.</li>
+                    <li><b>Log Out Button:</b> Opens logout dialog.</li>
+                </ul>
+            </li>
+            <li><b>Footer:</b> "Developed and Maintained By: Welvision Innovations Private Limited"</li>
+            <li><b>Navigation Bar (Bottom):</b>
+                <ul>
+                    <li>Buttons (enabled/disabled by role):
+                        <ul>
+                            <li>Inference</li>
+                            <li>Data</li>
+                            <li>Diagnosis</li>
+                            <li>Model Preview</li>
+                            <li>Model Management</li>
+                            <li>User Management (Admin/Super Admin)</li>
+                            <li>System Check (Super Admin)</li>
+                            <li>Info (Super Admin)</li>
+                            <li>Exit (Super Admin)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <h4>1.3. Tab Details</h4>
+        <h5>Inference Tab</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Start Inspection</td><td>Button</td><td>Starts all inspection processes and camera feeds.</td></tr>
+                <tr><td>Stop Inspection</td><td>Button</td><td>Stops all inspection processes and camera feeds.</td></tr>
+                <tr><td>Camera Feeds</td><td>Canvas/Image</td><td>Live video from OD and BigFace cameras.</td></tr>
+                <tr><td>Defect Thresholds</td><td>Sliders</td><td>Adjusts defect detection thresholds in real time.</td></tr>
+                <tr><td>Model Confidence</td><td>Slider</td><td>Adjusts model confidence threshold.</td></tr>
+                <tr><td>Status Labels</td><td>Label</td><td>Shows live statistics (e.g., total inspected, accepted, rejected).</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <p><b>Behavior:</b><br>
+        - Only one inspection can run at a time.<br>
+        - Sliders update backend thresholds live.</p>
+        <h5>Data Tab</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Roller Type</td><td>Entry</td><td>Name/type of the roller.</td></tr>
+                <tr><td>Outer Diameter (mm)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Dimple Diameter (mm)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Small Diameter (mm)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Length (mm)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Min Distance (pixels)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Max Distance (pixels)</td><td>Entry</td><td>Numeric input.</td></tr>
+                <tr><td>Add/Create</td><td>Button</td><td>Adds a new roller record.</td></tr>
+                <tr><td>Read/Load</td><td>Button</td><td>Loads selected roller data into the form.</td></tr>
+                <tr><td>Update</td><td>Button</td><td>Updates the selected roller.</td></tr>
+                <tr><td>Delete</td><td>Button</td><td>Deletes the selected roller (with confirmation).</td></tr>
+                <tr><td>Clear Form</td><td>Button</td><td>Clears all input fields.</td></tr>
+                <tr><td>Roller Table</td><td>TreeView</td><td>Displays all rollers. Double-click to load a roller.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <p><b>Behavior:</b><br>
+        - All fields are required and validated.<br>
+        - Min Distance must be less than Max Distance.<br>
+        - All measurements must be positive.<br>
+        - Global limits enforced for all users.</p>
+        <h5>Diagnosis Tab</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Generate Report</td><td>Button</td><td>Generates a report from inspection data.</td></tr>
+                <tr><td>Export to Excel</td><td>Button</td><td>Exports report data to Excel.</td></tr>
+                <tr><td>Save Chart</td><td>Button</td><td>Saves the current chart as an image.</td></tr>
+                <tr><td>Status/Defect Charts</td><td>Chart/Canvas</td><td>Visualizes inspection results.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>Model Preview Tab</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Start Preview</td><td>Button</td><td>Starts model preview (disabled if inspection running).</td></tr>
+                <tr><td>Stop Preview</td><td>Button</td><td>Stops model preview.</td></tr>
+                <tr><td>Model Output</td><td>Canvas/Image</td><td>Shows model predictions on sample data.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>Model Management Tab</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Upload Model</td><td>Button</td><td>Uploads a new model file.</td></tr>
+                <tr><td>Replace Model</td><td>Button</td><td>Replaces the current model.</td></tr>
+                <tr><td>Configure Model</td><td>Button</td><td>Opens model configuration options.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>User Management Tab (Admin/Super Admin)</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Add User</td><td>Button</td><td>Adds a new user.</td></tr>
+                <tr><td>Edit User</td><td>Button</td><td>Edits selected user details.</td></tr>
+                <tr><td>Delete User</td><td>Button</td><td>Deletes selected user.</td></tr>
+                <tr><td>User Table</td><td>TreeView</td><td>Lists all users and their roles.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>System Check Tab (Super Admin)</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Run System Check</td><td>Button</td><td>Runs diagnostics on system and PLC.</td></tr>
+                <tr><td>PLC Control</td><td>Button/Entry</td><td>Direct PLC interaction (advanced).</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>Info Tab (Super Admin)</h5>
+        <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr><th>UI Element</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>App Info</td><td>Label/Text</td><td>Shows application version, settings, etc.</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <h5>Exit Button (Super Admin)</h5>
+        <ul>
+            <li><b>Dialog Options:</b>
+                <ul>
+                    <li><b>Save and Exit:</b> Saves all unsaved data before exiting.</li>
+                    <li><b>Exit (Don't Save):</b> Exits without saving.</li>
+                    <li><b>Cancel:</b> Returns to the application.</li>
+                </ul>
+            </li>
+        </ul>
+        <h3>2. User Workflow</h3>
+        <ol>
+            <li><b>Login:</b> Select your role, enter Employee ID and Password, then click "Sign In".</li>
+            <li><b>Main Navigation:</b> Use the bottom navigation bar to access different tabs.</li>
+            <li><b>Inspection:</b>
+                <ul>
+                    <li>Go to the Inference tab.</li>
+                    <li>Click "Start Inspection" to begin.</li>
+                    <li>Adjust thresholds as needed.</li>
+                    <li>Click "Stop Inspection" to end.</li>
+                </ul>
+            </li>
+            <li><b>Data Management:</b>
+                <ul>
+                    <li>Go to the Data tab.</li>
+                    <li>Add, edit, or delete roller records as needed.</li>
+                </ul>
+            </li>
+            <li><b>Reporting:</b>
+                <ul>
+                    <li>Go to the Diagnosis tab.</li>
+                    <li>Generate and export reports.</li>
+                </ul>
+            </li>
+            <li><b>User/Admin Tasks:</b>
+                <ul>
+                    <li>Admins can manage users in the User Management tab.</li>
+                    <li>Super Admins can run diagnostics in the System Check tab.</li>
+                </ul>
+            </li>
+            <li><b>Logout/Exit:</b>
+                <ul>
+                    <li>Use the Log Out or Exit buttons.</li>
+                    <li>Always follow prompts to save your work.</li>
+                </ul>
+            </li>
+        </ol>
+        <h3>3. Developer Technical Details</h3>
+        <h4>3.1. Main Application Class</h4>
+        <pre><code class="language-python">class WelVisionApp(tk.Tk):
+    """
+    Main application window for WelVision.
+    Handles authentication, tab navigation, process management, and shutdown.
+    """
+    def __init__(self):
+        # Window setup, PLC connection, monitoring systems, shared data, etc.
+        # Shows login page on startup.
+    def show_login_page(self):
+        """Displays the login screen and handles login logic."""
+    def authenticate(self):
+        """Validates user credentials and sets current_user/current_role."""
+    def show_main_interface(self):
+        """Initializes and displays the main interface after login."""
+    def create_page_frames(self):
+        """Creates and initializes all tab frames and their modules."""
+    def controlled_exit(self):
+        """Handles safe application exit with save/cancel options."""
+    def logout_user(self):
+        """Handles user logout with save/cancel options."""
+    # ... (see main.py for full method list and docstrings)
+</code></pre>
+        <h4>3.2. Backend Process Flow</h4>
+        <ul>
+            <li><b>Multiprocessing:</b>
+                <ul>
+                    <li>Camera capture, inference, and PLC communication run in separate processes.</li>
+                    <li>Shared state is managed via <code>multiprocessing.Manager().dict()</code> and <code>Array</code>/<code>Queue</code> objects.</li>
+                </ul>
+            </li>
+            <li><b>Threading:</b>
+                <ul>
+                    <li>GUI updates and background monitoring (e.g., frame capture timeout, PLC alarms) use threads.</li>
+                </ul>
+            </li>
+            <li><b>Process Startup:</b>
+                <ul>
+                    <li>On "Start Inspection", processes for PLC communication, camera capture, and inference are started.</li>
+                    <li>On "Stop Inspection", all processes and threads are terminated.</li>
+                </ul>
+            </li>
+            <li><b>Shared Data:</b>
+                <ul>
+                    <li>Used for inter-process communication (e.g., inspection status, user info, frame data).</li>
+                </ul>
+            </li>
+        </ul>
+        <h4>3.3. Error Handling</h4>
+        <ul>
+            <li>All user actions are validated.</li>
+            <li>Database and hardware errors are caught and reported.</li>
+            <li>System events are logged in the database for auditability.</li>
+            <li>PLC signals are reset on exit to ensure hardware safety.</li>
+        </ul>
+        <h4>3.4. Database Schema (with Example Queries)</h4>
+        <p><b>Users Table:</b></p>
+        <pre><code class="language-sql">CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    last_login DATETIME,
+    last_logout DATETIME
+);
+</code></pre>
+        <p><b>Rollers Table:</b></p>
+        <pre><code class="language-sql">CREATE TABLE rollers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    roller_type VARCHAR(100) NOT NULL,
+    outer_diameter FLOAT NOT NULL,
+    dimple_diameter FLOAT NOT NULL,
+    small_diameter FLOAT NOT NULL,
+    length FLOAT NOT NULL,
+    min_distance FLOAT NOT NULL,
+    max_distance FLOAT NOT NULL,
+    created_by VARCHAR(50),
+    updated_by VARCHAR(50)
+);
+</code></pre>
+        <p><b>Thresholds Table:</b></p>
+        <pre><code class="language-sql">CREATE TABLE thresholds (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(20) NOT NULL, -- 'OD' or 'BIGFACE'
+    model_confidence FLOAT,
+    rust INT,
+    dent INT,
+    spherical_mark INT,
+    damage INT,
+    flat_line INT,
+    damage_on_end INT,
+    roller INT
+);
+</code></pre>
+        <p><b>Example Query:</b> Get all rollers:</p>
+        <pre><code class="language-sql">SELECT * FROM rollers;
+</code></pre>
+        <h4>3.5. Extending the Application</h4>
+        <ul>
+            <li><b>To add a new tab:</b>
+                <ol>
+                    <li>Create a new file (e.g., <code>new_tab.py</code>) with a class for the tab.</li>
+                    <li>Import and instantiate the tab in <code>main.py</code>’s <code>create_page_frames</code>.</li>
+                    <li>Add a navigation button in the main interface.</li>
+                </ol>
+            </li>
+            <li><b>To add new user roles:</b>
+                <ul>
+                    <li>Update role checks in <code>main.py</code> and <code>user_management_tab.py</code>.</li>
+                    <li>Adjust navigation and access control logic as needed.</li>
+                </ul>
+            </li>
+            <li><b>To integrate new hardware:</b>
+                <ul>
+                    <li>Add communication logic in <code>backend.py</code>.</li>
+                    <li>Update process management in <code>main.py</code>.</li>
+                </ul>
+            </li>
+        </ul>
+        <h4>3.6. Example: Adding a New Button to Data Tab</h4>
+        <pre><code class="language-python"># In data_tab.py
+def __init__(self, parent, app):
+    # ... existing code ...
+    self.export_button = tk.Button(parent, text="Export CSV", command=self.export_csv)
+    self.export_button.grid(row=8, column=0, pady=10)
+
+def export_csv(self):
+    # Export roller data to CSV
+    import pandas as pd
+    rollers = db_manager.get_all_rollers()
+    df = pd.DataFrame(rollers)
+    df.to_csv("rollers_export.csv", index=False)
+    messagebox.showinfo("Export", "Roller data exported to rollers_export.csv")
+</code></pre>
+        <h3>4. Support &amp; Maintenance</h3>
+        <ul>
+            <li><b>For bugs or feature requests:</b>
+                <ul>
+                    <li>Check logs and database for error messages.</li>
+                    <li>Review modular tab files for UI issues.</li>
+                    <li>For backend/process issues, check <code>backend.py</code> and process management in <code>main.py</code>.</li>
+                </ul>
+            </li>
+        </ul>
     </section>
 </div>
 <script>
@@ -517,6 +906,30 @@ function hideHotspotInfo() {
   document.getElementById('hotspot-info').style.display = 'none';
   highlightHotspot('diagnosis-od-svg', null);
 }
+document.addEventListener('DOMContentLoaded', function() {
+  // Make all tables sortable
+  document.querySelectorAll('table').forEach(function(table) {
+    new Tablesort(table);
+  });
+  // Add copy button to all code blocks
+  document.querySelectorAll('pre > code').forEach(function(codeBlock) {
+    // Wrap code block
+    var wrapper = document.createElement('div');
+    wrapper.className = 'code-block-wrapper';
+    codeBlock.parentNode.parentNode.insertBefore(wrapper, codeBlock.parentNode);
+    wrapper.appendChild(codeBlock.parentNode);
+    // Add copy button
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(codeBlock.textContent);
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1200);
+    };
+    wrapper.appendChild(btn);
+  });
+});
 </script>
 </body>
 </html> 
