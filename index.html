@@ -158,6 +158,8 @@
     <nav>
         <ul class="toc">
             <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#system-requirements">System Requirements & Device Status</a></li>
+            <li><a href="#installation-guide">Installation Guide</a></li>
             <li><a href="#workflow">User Workflow</a></li>
             <li><a href="#roles">Login Roles & Permissions</a></li>
             <li><a href="#inference">Inference Modules</a></li>
@@ -168,6 +170,9 @@
             <li><a href="#model-management">Model Management</a></li>
             <li><a href="#user-management">User Management</a></li>
             <li><a href="#system-check">System Check</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#contact-support">Contact & Support</a></li>
+            <li><a href="#legal-licensing">Legal & Licensing</a></li>
             <li><a href="#gui-gallery">GUI Gallery</a></li>
             <li><a href="#summary">Summary</a></li>
             <li><a href="#comprehensive-manual">Comprehensive User &amp; Developer Manual</a></li>
@@ -177,14 +182,52 @@
         <h2>Introduction</h2>
         <p>AI-driven roller inspection system developed to automate quality control processes in industrial environments. It performs real-time visual inspection of rollers by capturing images from two critical perspectives: BigFace (BF) and OD. Leveraging advanced machine learning models, the system accurately detects and classifies surface-level defects such as rust, dents, damages, flat lines, spherical marks, high heads, and down heads. Based on predefined confidence thresholds, and determines the acceptability of each roller, calculates quality percentages, and segregates defective units while storing their corresponding images for review.<br><br>The system is structured around a role-based access model comprising three user levels: User, Admin, and Super Admin. Users are primarily responsible for initiating and monitoring live inspections, with read-only access to results and statistics. Admins are granted additional privileges to configure thresholds, manage roller data, upload models, and oversee limited user account settings. Super Admins retain full control over the system, including access to PLC configuration, global limits, emergency operations, GUI customization, and complete user and model management.<br><br>Key modules of the system include the Inference Panel, which presents live inspection data, feed images, roller details, and statistical summaries; the Model Preview module, which enables offline testing of BF and OD models without affecting the live pipeline; and the Diagnosis Module, which provides date-filtered reporting with graphical summaries and export capabilities. The Info Panel offers a centralized dashboard for GUI customization, device connectivity checks, and system diagnostics. Threshold adjustments and model tuning histories are also logged for traceability.<br><br>Administrators can manage roller specifications and set dimensional boundaries through the Data Module, while Super Admins define global limits that govern what ranges Admins can work within. AI models are handled through the Model Management section, where models can be uploaded, activated, viewed, or deleted. The User Management module enables Admins and Super Admins to manage system users, with delete access restricted to Super Admins. Finally, the System Check interface provides physical control over the inspection process, allowing pattern selection, sensor monitoring, and emergency halts via PLC integration.</p>
     </section>
+    <section id="system-requirements">
+        <h2>System Requirements & Device Status</h2>
+        <div style="background:#e9f1fa;padding:1.2em 1.5em;border-radius:8px;margin-bottom:2em;">
+            <ul style="list-style:none;padding-left:0;">
+                <li><b>System Platform:</b> Windows 10</li>
+                <li><b>Python Version:</b> 3.13.2</li>
+                <li><b>CPU Cores:</b> 16</li>
+                <li><b>Memory:</b> 15 GB</li>
+                <li><b>Application Version:</b> 1.0.0</li>
+                <li><b>Database Status:</b> <span style="color:green;font-weight:bold;">Connected</span></li>
+            </ul>
+            <hr style="margin:1.2em 0;">
+            <b>Device Connection Status:</b>
+            <ul style="list-style:none;padding-left:0;">
+                <li>PLC Connection: <span style="color:green;font-weight:bold;">&#x2705; Connected</span></li>
+                <li>OD Camera: <span style="color:green;font-weight:bold;">&#x2705; Connected</span></li>
+                <li>BF Camera: <span style="color:green;font-weight:bold;">&#x2705; Connected</span></li>
+            </ul>
+            <hr style="margin:1.2em 0;">
+            <b>PLC Details:</b>
+            <ul style="list-style:none;padding-left:0;">
+                <li>PLC IP: <b>172.17.8.17</b></li>
+                <li>Cameras Connected: <b>2/2</b></li>
+                <li>System Ready: <span style="color:green;font-weight:bold;">&#x2705; Yes – All devices operational</span></li>
+            </ul>
+        </div>
+    </section>
+    <section id="installation-guide">
+        <h2>Installation Guide</h2>
+        <p><b>System Requirements:</b> Ensure your system meets the requirements listed above.<br>
+        <b>Step 1:</b> Download the Welvision application installer.<br>
+        <b>Step 2:</b> Run the installer and follow the on-screen instructions.<br>
+        <b>Step 3:</b> Install required Python dependencies (if not bundled).<br>
+        <b>Step 4:</b> Connect all hardware devices (PLC, OD Camera, BF Camera) and ensure they are powered on.<br>
+        <b>Step 5:</b> Launch the application and verify device status in the System Requirements section.<br>
+        <b>Step 6:</b> If the database is not connected, check your network and database configuration.<br>
+        <b>Step 7:</b> Refer to Troubleshooting if you encounter issues.</p>
+    </section>
     <section id="workflow">
         <h2>User Workflow</h2>
         <ol>
-            <li><b>User Login and Role-Based Access</b><br>The system begins at the Login Page, where the user selects one of three roles: User, Admin, or Super Admin. After entering their Employee ID and Password, the user logs in. Access to system modules is determined by role:<ul><li>User: Limited to live inspection via Inference Panel.</li><li>Admin: Additional access to threshold settings, data, model management, and limited user controls.</li><li>Super Admin: Full access including PLC/system check, GUI customization, global limits, and emergency control.</li></ul></li>
-            <li><b>Navigation to Inference Panel and Starting the System</b><br>Once logged in, the user navigates to the Inference Panel. The user selects: Roller Type, BF and OD Models, Confidence Thresholds. Upon confirmation, the user clicks the Start button (only in Auto mode) to initiate the inspection cycle.</li>
-            <li><b>Selection of Operation Mode</b><br><b>Manual Mode (Physical Control Only):</b> The user physically switches the system mode to Manual using the control panel. If required, the user adjusts speed physically. The index plate is activated manually, and the disk begins to rotate. Rollers are fed manually between the rotating teeth. Start/Stop controls are completely physical in this mode—no UI-based controls are active. The user can press the physical Stop button to halt the inspection process. An Emergency Stop is available on the physical panel for safety override.<br><b>Auto Mode (UI-Controlled):</b> The user clicks the Start button on the UI, followed by pressing the Cycle Start button physically. Speed can be adjusted if needed. The disk rotates, rollers are automatically loaded between the teeth, and the inspection proceeds. In this mode, the user can start and stop the process via the UI. The UI Emergency Stop also remains available at all times.</li>
-            <li><b>Roller Inspection Process – Sensor-Based Workflow</b><br>Once the roller is placed between the teeth and begins its cycle, it passes through six sensor checkpoints:<ul><li>Sensor 1: BF Presence Detection</li><li>Sensor 2: Head Type Detection</li><li>Sensor 3: OD Presence Detection</li><li>Sensor 4: BF Accept/Reject Decision</li><li>Sensor 5: OD Accept/Reject Decision</li><li>Sensor 6: Teeth Sensor – Slot Counter</li></ul></li>
-            <li><b>Real-Time Roller Status via UI</b><br>The UI Interface plays a crucial role in live monitoring and feedback during inspection, showing live feeds, defect counts, roller status, rejected images, confidence thresholds, measurements, status indicators, and control buttons.</li>
+            <li><b>User Login and Role-Based Access</b><br>The system begins at the Login Page, where the user selects one of three roles: User, Admin, or Super Admin.<ul><li>After entering their Employee ID and Password, the user logs in.</li><li>Access to system modules is determined by role:<ul><li>User: Limited to live inspection via Inference Panel.</li><li>Admin: Additional access to threshold settings, data, model management, and limited user controls.</li><li>Super Admin: Full access including PLC/system check, GUI customization, global limits, and emergency control.</li></ul></li></ul></li>
+            <li><b>Navigation to Inference Panel and Starting the System</b><ul><li>Once logged in, the user navigates to the Inference Panel.</li><li>The user selects: Roller Type, BF and OD Models, Confidence Thresholds.</li><li>Upon confirmation, the user clicks the Start button (only in Auto mode) to initiate the inspection cycle.</li></ul></li>
+            <li><b>Selection of Operation Mode</b><br><b>Manual Mode (Physical Control Only):</b><ul><li>The user physically switches the system mode to Manual using the control panel.</li><li>If required, the user adjusts speed physically.</li><li>The index plate is activated manually, and the disk begins to rotate.</li><li>Rollers are fed manually between the rotating teeth.</li><li>Start/Stop controls are completely physical in this mode—no UI-based controls are active.</li><li>The user can press the physical Stop button to halt the inspection process.</li><li>An Emergency Stop is available on the physical panel for safety override.</li></ul><b>Auto Mode (UI-Controlled):</b><ul><li>The user clicks the Start button on the UI, followed by pressing the Cycle Start button physically.</li><li>Speed can be adjusted if needed.</li><li>The disk rotates, rollers are automatically loaded between the teeth, and the inspection proceeds.</li><li>In this mode, the user can start and stop the process via the UI.</li><li>The UI Emergency Stop also remains available at all times.</li></ul></li>
+            <li><b>Roller Inspection Process – Sensor-Based Workflow</b><ul><li>Once the roller is placed between the teeth and begins its cycle, it passes through six sensor checkpoints:</li><li>Sensor 1: BF Presence Detection</li><li>Sensor 2: Head Type Detection</li><li>Sensor 3: OD Presence Detection</li><li>Sensor 4: BF Accept/Reject Decision</li><li>Sensor 5: OD Accept/Reject Decision</li><li>Sensor 6: Teeth Sensor – Slot Counter</li></ul></li>
+            <li><b>Real-Time Roller Status via UI</b><ul><li>The UI Interface plays a crucial role in live monitoring and feedback during inspection, showing live feeds, defect counts, roller status, rejected images, confidence thresholds, measurements, status indicators, and control buttons.</li></ul></li>
         </ol>
     </section>
     <section id="roles">
@@ -204,39 +247,43 @@
             <li>Purpose: To perform live inspection of rollers using real-time camera feeds and AI models that assess both BF (BigFace) and OD (Outer Diameter).</li>
             <li>Roller Type Dropdown: Select the roller to inspect.</li>
             <li>Date & Time: Displays current date and time for reference/logging.</li>
-            <li>Confidence Thresholds: Shows model confidence level used to detect defects.</li>
-            <li>AI Models Dropdown: Select OD Model and BigFace Model.</li>
+            <li>Machine Status Section: Shows machine mode, disc status, and teeth status.</li>
+            <li>Confidence Thresholds: Shows model confidence level used to detect defects (OD and BF).</li>
+            <li>AI Models Dropdown: Select OD Model and BigFace Model. (Note: If no AI model is present, the application cannot run.)</li>
             <li>BF Feed & OD Feed: Live image stream from camera, highlights visual defects if detected.</li>
-            <li>Results Section: BigFace Result, OD Result.</li>
-            <li>Overall Result: Combines both BF and OD data.</li>
-            <li>Roller Info Panel: Displays roller specifications.</li>
+            <li>Results Section: BigFace Result and OD Result, with detailed metrics (Inspected, OK, Not OK, Percentage).</li>
+            <li>Overall Result: Combines both BF and OD data (Total Inspected, OK, Not OK, Overall Quality Percentage).</li>
+            <li>Roller Info Panel: Displays roller specifications (Outer Diameter, Dimple Diameter, Small Diameter, Roller Length).</li>
             <li>Rejected Roller Images: Last rejected BF and OD roller images.</li>
-            <li>Control Buttons, Top-Right Controls, Navigation Buttons.</li>
+            <li>Control Buttons: Start, Stop, Reset (saves data to backend), Emergency Stop. Allow all images (Super Admin only).</li>
+            <li>Top-Right Controls: User ID, Log Out.</li>
+            <li>Navigation Buttons: Inference, Info Tab, Data, Diagnosis, Model Preview, Model Management, User Management, System Check, Exit.</li>
         </ul>
     </section>
     <section id="info">
         <h2>Info Tab</h2>
         <ul>
-            <li>GUI Application Title Management: Customize the Welvision interface branding or identification.</li>
-            <li>Settings History: Track all threshold modifications applied during inspections.</li>
-            <li>System Information: Snapshot of hardware/software and connection statuses.</li>
+            <li>GUI Application Title Management: Customize the Welvision interface branding or identification. Fields: Current GUI Title, New GUI Title, Update Title, Reset to Default, Preview.</li>
+            <li>Settings History: Track all threshold modifications applied during inspections. View, filter, clear, refresh, and export history.</li>
+            <li>System Information: Snapshot of hardware/software and connection statuses. Generate System Report, Refresh Cameras.</li>
             <li>User Manual Access: Directs to the full documentation for Welvision.</li>
         </ul>
     </section>
     <section id="data">
         <h2>Data Page</h2>
         <ul>
-            <li>Global Roller Limits (Super Admin Only): Set acceptable minimum and maximum physical dimensions for all roller types.</li>
-            <li>Roller Information: Define specific roller entries.</li>
-            <li>Roller Data Table: Lists all existing roller types with properties.</li>
+            <li>Global Roller Limits (Super Admin Only): Set acceptable minimum and maximum physical dimensions for all roller types. Fields: Outer Diameter, Dimple Diameter, Small Diameter, Length. Buttons: Save Global Limits, Load Current, Clear Fields, Refresh.</li>
+            <li>Roller Information: Define specific roller entries. Fields: Roller Type, Outer Diameter, Dimple Diameter, Small Diameter, Length, Min Distance, Max Distance. Action Buttons: Create, Read, Update, Delete, Clear Fields.</li>
+            <li>Roller Data Table: Lists all existing roller types with properties. Selecting a row auto-fills the Roller Information section.</li>
         </ul>
     </section>
     <section id="diagnosis">
         <h2>Diagnosis</h2>
         <ul>
-            <li>Provides automated inspection reports and graphical summaries of roller defects over time.</li>
-            <li>Controls Panel: Filter and generate custom reports based on inspection type, date, and component.</li>
-            <li>Defect wise Chart: Visual breakdown of defect types.</li>
+            <li>Provides automated inspection reports and graphical summaries of roller defects over time. Controls Panel: Filter and generate custom reports based on inspection type, date, and component.</li>
+            <li>Defectwise Chart: Visual breakdown of defect types (e.g., Rust, Dent, Damage).</li>
+            <li>Report Data Table: Updated headers for clarity (Roller Type, Inspection Date, Inspection Time, etc.).</li>
+            <li>Buttons: Generate Report, Generate Monthly Report, Save Chart, Export to Excel.</li>
         </ul>
     </section>
     <section id="model-preview">
@@ -251,26 +298,48 @@
     <section id="model-management">
         <h2>Model Management</h2>
         <ul>
-            <li>Manage all AI models used in the inspection system.</li>
-            <li>Upload new models, view/filter installed models, view model details, delete outdated models.</li>
+            <li>Upload new models: Enter model name, select type (OD or BIGFACE), browse and upload .pt file.</li>
+            <li>View/filter installed models, view model details, delete outdated models.</li>
+            <li>Model Controls: View Details, Refresh, Delete Model.</li>
         </ul>
     </section>
     <section id="user-management">
         <h2>User Management</h2>
         <ul>
-            <li>Manage all user accounts, including creation, modification, status control, and password changes.</li>
-            <li>Current Users Table: List of all registered users with details.</li>
-            <li>User Details Panel: Add/update users, change password, deactivate/delete users.</li>
-            <li>Installed Models Table, Model Controls.</li>
+            <li>Manage all user accounts: creation, modification, status control, password changes.</li>
+            <li>Current Users Table: Employee ID, Email Address, Role, Status, Created.</li>
+            <li>User Details Panel: Add/update users, change password, deactivate/delete users, clear form.</li>
+            <li>Installed Models Table: ID, Name, Type, Model Path, Upload Date, Uploaded By.</li>
+            <li>Model Controls: View Details, Refresh, Delete Model.</li>
         </ul>
     </section>
     <section id="system-check">
         <h2>System Check</h2>
         <ul>
-            <li>Control and monitor the physical inspection system (PLC-connected).</li>
-            <li>Control Settings: BigFace/OD Control, System Status, Sensor Status, Processing Counters.</li>
-            <li>System Control Buttons, Emergency Handling.</li>
+            <li>Control and monitor the physical inspection system (PLC-connected). Control Settings: BigFace/OD Control (Accept All, Reject All, Alternate), System Status, Sensor Status, Processing Counters.</li>
+            <li>System Control Buttons: Start System, Stop System, Reset Counters, Emergency Stop.</li>
         </ul>
+    </section>
+    <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        <ul>
+            <li>If the application does not start, check Python and dependency installation.</li>
+            <li>If devices are not detected, verify all cables and power supplies.</li>
+            <li>If the database is not connected, check network and database configuration.</li>
+            <li>For camera issues, use the Refresh Cameras option in the Info Tab.</li>
+            <li>Refer to the user manual for additional troubleshooting steps.</li>
+        </ul>
+    </section>
+    <section id="contact-support">
+        <h2>Contact & Support</h2>
+        <p>For technical support, feature requests, or bug reports, please contact:<br>
+        <b>Email:</b> support@welvision.com<br>
+        <b>Phone:</b> +91-XXXXXXXXXX<br>
+        <b>Website:</b> <a href="https://www.welvision.com" target="_blank">www.welvision.com</a></p>
+    </section>
+    <section id="legal-licensing">
+        <h2>Legal & Licensing</h2>
+        <p>This software and documentation are the property of Welvision Pvt. Ltd. Unauthorized copying, distribution, or modification is strictly prohibited. For licensing information, please contact Welvision Pvt. Ltd.</p>
     </section>
     <section id="gui-gallery">
         <h2>GUI Gallery</h2>
